@@ -4,7 +4,7 @@
  *
  * 用例：
  *
- * 目标文件路径：src/views/test/index.vue
+ * 目标文件路径：src/views/test/menu.vue
  *
  * import {routerComponentImport} from '@utils'
  *

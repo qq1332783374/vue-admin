@@ -4,9 +4,17 @@
 import {RouteRecordRaw} from 'vue-router'
 import {viewPageRouteImport} from '@utils'
 import Layout from '@components/layout/index.vue'
-import System from './modules/system'
 
-console.log('System', System)
+// 动态读取modules 模块菜单
+const moduleFile = import.meta.globEager('./*/*.ts')
+
+export const moduleRoutes: Array<RouteRecordRaw> = []
+
+Object.keys(moduleFile).forEach(async (routeKey) => {
+  const routeItem = moduleFile[routeKey].default
+
+  moduleRoutes.push(...routeItem)
+})
 
 const layoutRoutes: Array<RouteRecordRaw> = [
   {
@@ -19,13 +27,13 @@ const layoutRoutes: Array<RouteRecordRaw> = [
         name: 'home',
         component: viewPageRouteImport('home/index'),
         meta: {
-          title: '主页',
+          title: '首页',
           icon: 'home'
         }
-      },
-      ...System
+      }
     ]
-  }
+  },
+  ...moduleRoutes
 ]
 
 export default layoutRoutes

@@ -2,14 +2,17 @@
   <div class="top-header-tab">
     <el-tabs
       class="top-header-tabs"
-      v-model="activeName"
+      v-model="activeRouteName"
       @tab-click="handleClick"
+      @tab-remove="handlerClickRemove"
       closable
       type="card"
     >
       <el-tab-pane
-        label="首页"
-        name="home"
+        v-for="item in tabList"
+        :key="item.name"
+        :label="item.title"
+        :name="item.name"
         class="top-header-tab-pane"
       />
     </el-tabs>
@@ -17,26 +20,52 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
 
 export default defineComponent({
   name: 'top-header-tab',
   setup () {
-    const activeName = ref('home')
     const router = useRouter()
+    const store = useStore()
+    const tabList = computed(() => store.state.LayoutRoute.activeTabList)
+    const activeRouteName = computed({
+      get () {
+        return store.state.LayoutRoute.activeRouteName
+      },
+      set (val: string) {
+        store.commit('SET_ACTIVE_ROUTE_NAME', val)
+      }
+    })
 
     const handleClick = (tab, event) => {
-      console.log('tab', tab.paneName);
+      console.log('handleClick', tab.paneName);
       console.log('event', event);
       router.push({
         name: tab.paneName
       })
+
+      activeRouteName.value = tab.paneName
+    }
+
+    const handlerClickRemove = (tabName: string) => {
+      store.commit('DEL_TAB_ITEM', tabName)
+
+      const currentItem = tabList.value[tabList.value.length - 1]
+
+      activeRouteName.value = currentItem.name
+
+      router.push({
+        name: currentItem.name
+      })
     }
 
     return {
-      activeName,
-      handleClick
+      tabList,
+      activeRouteName,
+      handleClick,
+      handlerClickRemove
     }
   }
 })

@@ -5,8 +5,17 @@
         <i class="el-icon-s-fold"></i>
       </div>
       <el-breadcrumb separator="/">
-        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-        <el-breadcrumb-item><a href="/">活动管理</a></el-breadcrumb-item>
+        <el-breadcrumb-item
+          :to="{ path: '/' }"
+          @click="handlerClickBreadcrumbItem('home')"
+        >
+          首页
+        </el-breadcrumb-item>
+        <el-breadcrumb-item
+          v-show="currentRoute !== '首页'"
+        >
+          {{ currentRoute }}
+        </el-breadcrumb-item>
       </el-breadcrumb>
     </div>
     <div class="top-header-nav-bar__right display-flex align-items-center">
@@ -30,10 +39,44 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import {computed, defineComponent} from 'vue'
+import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({
-  name: 'top-header-nav-bar'
+  name: 'top-header-nav-bar',
+  setup () {
+    const store = useStore()
+    const route = useRoute()
+    const router = useRouter()
+
+    const activeRouteName = computed(() => store.state.LayoutRoute.activeRouteName)
+
+    const currentRoute = computed(() => {
+      const currentItem = route.matched.filter(item => item.name === activeRouteName.value)
+
+      console.log('currentItem', currentItem)
+
+      return currentItem[0] && currentItem[0].meta.title || '首页'
+    })
+
+    const handlerClickBreadcrumbItem = (to: string) => {
+      console.log('to', to)
+      if (to) {
+        router.push({
+          name: to
+        })
+      }
+
+      store.commit('SET_ACTIVE_ROUTE_NAME', 'home')
+    }
+
+    return {
+      activeRouteName,
+      currentRoute,
+      handlerClickBreadcrumbItem,
+    }
+  }
 })
 </script>
 
