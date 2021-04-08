@@ -22,7 +22,10 @@
       </el-breadcrumb>
     </div>
     <div class="top-header-nav-bar__right display-flex align-items-center">
-      <ul class="top-header-nav-bar__tools display-flex">
+      <ul
+        class="top-header-nav-bar__tools display-flex"
+        v-if="UA !== 'mobile'"
+      >
         <li class="top-header-nav-bar__tools-item">
           <i class="el-icon-s-tools"></i>
         </li>
@@ -55,6 +58,7 @@ export default defineComponent({
 
     const activeRouteName = computed(() => store.state.Common.activeRouteName)
     const isCollapse = computed(() => store.state.Common.isCollapse)
+    const UA = computed(() => store.state.Common.UA)
 
     const currentRoute = computed(() => {
       const currentItem = route.matched.filter(item => item.name === activeRouteName.value)
@@ -83,10 +87,16 @@ export default defineComponent({
      * 控制侧边导航条收起
      */
     const handlerSwitchSideBar = () => {
+      if (UA.value === 'mobile') {
+        store.commit('SET_COLLAPSE', false)
+
+        return
+      }
       store.commit('SET_COLLAPSE', !isCollapse.value)
     }
 
     return {
+      UA,
       activeRouteName,
       currentRoute,
       handlerClickBreadcrumbItem,

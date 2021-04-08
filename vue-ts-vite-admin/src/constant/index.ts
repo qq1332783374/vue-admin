@@ -23,3 +23,8 @@ export const ACTIVE_TAB_LIST = 'ACTIVE_TAB_LIST'
  * 控制侧栏是否展开
  */
 export const IS_SIDE_BAR_COLLAPSE = 'IS_SIDE_BAR_COLLAPSE'
+
+/**
+ * 当前用户操作系统
+ */
+export const UA = 'UA'

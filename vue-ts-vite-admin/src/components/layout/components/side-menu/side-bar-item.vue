@@ -26,7 +26,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+  import {computed, defineComponent} from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 
@@ -41,6 +41,7 @@ export default defineComponent({
   setup () {
     const store = useStore()
     const router = useRouter()
+    const UA = computed(() => store.state.Common.UA)
 
     const handlerGoTo = (item) => {
 
@@ -59,6 +60,10 @@ export default defineComponent({
       router.push({
         name: item.name
       })
+
+      if (UA.value === 'mobile') {
+        store.commit('SET_COLLAPSE', true)
+      }
 
     }
 

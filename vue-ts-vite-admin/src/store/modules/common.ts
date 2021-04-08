@@ -6,7 +6,8 @@ import {
   ACTIVE_ROUTE_NAME,
   ACTIVE_TAB_LIST,
   IS_SIDE_BAR_COLLAPSE,
-  ROUTES_LIST
+  ROUTES_LIST,
+  UA
 } from '@constant'
 
 interface tabItem {
@@ -19,7 +20,8 @@ interface State {
   routes: Array<RouteRecordRaw>,
   activeTabList: Array<tabItem>,
   activeRouteName: string,
-  isCollapse: boolean
+  isCollapse: boolean,
+  UA: string
 }
 
 const common: Object = {
@@ -28,7 +30,8 @@ const common: Object = {
     activeRouteName: getLocalStorage(ACTIVE_ROUTE_NAME) || 'home',
     routes: getLocalStorage(ROUTES_LIST) || moduleRoutes,
     activeTabList: getLocalStorage(ACTIVE_TAB_LIST) ||  [{ name: 'home', path: 'home', title: '首页' }],
-    isCollapse: getLocalStorage(IS_SIDE_BAR_COLLAPSE) || false
+    isCollapse: getLocalStorage(IS_SIDE_BAR_COLLAPSE) || false,
+    UA: getLocalStorage(UA) || 'desktop'
   },
   mutations: {
     SET_TAB_ITEM (state: State, item: tabItem) {
@@ -55,6 +58,11 @@ const common: Object = {
       state.isCollapse = collapse
 
       setLocalStorage(IS_SIDE_BAR_COLLAPSE, collapse)
+    },
+    SET_UA (state: State, type: string) {
+      state.UA = type
+
+      setLocalStorage(UA, type)
     }
   }
 }

@@ -42,6 +42,7 @@ export default defineComponent({
     const menuList = store.state.Common.routes
     const activeRouteName = computed(() => store.state.Common.activeRouteName)
     const isCollapse = computed(() => store.state.Common.isCollapse)
+    const UA = computed(() => store.state.Common.UA)
 
     const handleOpen = (key, keyPath) => {
       console.log(key, keyPath)
@@ -55,6 +56,10 @@ export default defineComponent({
       store.commit('SET_ACTIVE_ROUTE_NAME', 'home')
 
       router.push({name: 'home'})
+
+      if (UA.value === 'mobile') {
+        store.commit('SET_COLLAPSE', true)
+      }
     }
 
     return {
