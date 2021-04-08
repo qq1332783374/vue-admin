@@ -16,6 +16,7 @@ export default defineConfig({
       '@': pathResolve('src'),
       '@assets': pathResolve('src/assets'),
       '@components': pathResolve('src/components'),
+      '@constant': pathResolve('src/constant'),
       '@service': pathResolve('src/service'),
       '@utils': pathResolve('src/utils'),
       '@views': pathResolve('src/views'),

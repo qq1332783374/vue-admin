@@ -19,3 +19,22 @@
 export function viewPageRouteImport (filePath: string) {
   return () => import(`../views/${filePath}.vue`)
 }
+
+/**
+ * 获取本地存储数据
+ * @param key
+ */
+export const getLocalStorage = (key: string) => {
+  const localRes = localStorage.getItem(key)
+
+  return localRes ? JSON.parse(localRes) : localRes
+}
+
+/**
+ * 设置本地存储数据
+ * @param key
+ * @param val
+ */
+export const setLocalStorage = (key: string, val: any): void => {
+  localStorage.setItem(key, JSON.stringify(val))
+}
