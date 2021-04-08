@@ -29,10 +29,10 @@ export default defineComponent({
   setup () {
     const router = useRouter()
     const store = useStore()
-    const tabList = computed(() => store.state.LayoutRoute.activeTabList)
+    const tabList = computed(() => store.state.Common.activeTabList)
     const activeRouteName = computed({
       get () {
-        return store.state.LayoutRoute.activeRouteName
+        return store.state.Common.activeRouteName
       },
       set (val: string) {
         store.commit('SET_ACTIVE_ROUTE_NAME', val)

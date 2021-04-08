@@ -1,6 +1,6 @@
 <template>
   <div class="system">
-    系统设置
+    菜单设置
   </div>
 </template>
 

@@ -39,8 +39,8 @@ export default defineComponent({
     const router = useRouter()
     const store = useStore()
 
-    const menuList = store.state.LayoutRoute.routes
-    const activeRouteName = computed(() => store.state.LayoutRoute.activeRouteName)
+    const menuList = store.state.Common.routes
+    const activeRouteName = computed(() => store.state.Common.activeRouteName)
     const isCollapse = ref(false)
 
     const handleOpen = (key, keyPath) => {

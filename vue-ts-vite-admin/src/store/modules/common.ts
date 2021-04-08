@@ -16,7 +16,7 @@ interface State {
 
 console.log('moduleRoutes', moduleRoutes)
 
-const layoutRoutes: Object = {
+const common: Object = {
   namespace: true,
   state: {
     activeRouteName: 'home',
@@ -34,6 +34,7 @@ const layoutRoutes: Object = {
       if (tabName !== 'home') {
         state.activeTabList = state.activeTabList.filter((item: tabItem) => item.name !== tabName)
       }
+
     },
     SET_ACTIVE_ROUTE_NAME (state: State, active: string) {
       state.activeRouteName = active
@@ -41,4 +42,4 @@ const layoutRoutes: Object = {
   }
 }
 
-export default layoutRoutes
+export default common

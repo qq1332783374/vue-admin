@@ -46,7 +46,7 @@ export default defineComponent({
 
     const handlerGoTo = (item) => {
 
-      const isHasTab = store.state.LayoutRoute.activeTabList.filter(tItem => tItem.name === item.name)
+      const isHasTab = store.state.Common.activeTabList.filter(tItem => tItem.name === item.name)
       console.log('handlerGoTo', isHasTab)
       if (!isHasTab.length) {
         store.commit('SET_TAB_ITEM', {

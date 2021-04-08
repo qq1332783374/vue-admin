@@ -2,7 +2,10 @@
   <div class="top-header-nav-bar">
     <div class="top-header-nav-bar__left display-flex align-items-center">
       <div class="top-header-nav-bar__collapse">
-        <i class="el-icon-s-fold"></i>
+        <i
+          class="el-icon-s-fold"
+          @click="handlerSwitchSideBar"
+        />
       </div>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item
@@ -50,7 +53,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
 
-    const activeRouteName = computed(() => store.state.LayoutRoute.activeRouteName)
+    const activeRouteName = computed(() => store.state.Common.activeRouteName)
 
     const currentRoute = computed(() => {
       const currentItem = route.matched.filter(item => item.name === activeRouteName.value)
@@ -60,6 +63,10 @@ export default defineComponent({
       return currentItem[0] && currentItem[0].meta.title || '首页'
     })
 
+    /**
+     * 面包屑导航栏切换
+     * @param to
+     */
     const handlerClickBreadcrumbItem = (to: string) => {
       console.log('to', to)
       if (to) {
@@ -71,10 +78,18 @@ export default defineComponent({
       store.commit('SET_ACTIVE_ROUTE_NAME', 'home')
     }
 
+    /**
+     * 控制侧边导航条收起
+     */
+    const handlerSwitchSideBar = () => {
+
+    }
+
     return {
       activeRouteName,
       currentRoute,
       handlerClickBreadcrumbItem,
+      handlerSwitchSideBar,
     }
   }
 })

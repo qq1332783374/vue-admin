@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import LayoutRoute from './modules/layout-routes'
+import Common from './modules/common'
 
 export default createStore({
   state: {
@@ -12,6 +12,6 @@ export default createStore({
   mutations: {
   },
   modules: {
-    LayoutRoute
+    Common
   }
 })
