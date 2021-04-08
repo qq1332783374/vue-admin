@@ -11,7 +11,8 @@ interface tabItem {
 interface State {
   routes: Array<RouteRecordRaw>,
   activeTabList: Array<tabItem>,
-  activeRouteName: string
+  activeRouteName: string,
+  isCollapse: boolean
 }
 
 console.log('moduleRoutes', moduleRoutes)
@@ -23,7 +24,8 @@ const common: Object = {
     routes: moduleRoutes,
     activeTabList: [
       { name: 'home', path: 'home', title: '首页' }
-    ]
+    ],
+    isCollapse: false
   },
   mutations: {
     SET_TAB_ITEM (state: State, item: tabItem) {
@@ -38,6 +40,10 @@ const common: Object = {
     },
     SET_ACTIVE_ROUTE_NAME (state: State, active: string) {
       state.activeRouteName = active
+    },
+    SET_COLLAPSE (state: State, collapse: boolean) {
+      console.log('collapse', collapse)
+      state.isCollapse = collapse
     }
   }
 }
