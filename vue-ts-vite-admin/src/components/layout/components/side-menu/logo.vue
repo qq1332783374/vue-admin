@@ -5,22 +5,29 @@
       alt="logo"
       :src="LogoPng"
     />
-    <div class="side-menu-logo__name">
+    <div
+      v-if="!isCollapse"
+      class="side-menu-logo__name"
+    >
       Vue3 Admin
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import {computed, defineComponent} from 'vue'
+import { useStore } from 'vuex'
 import LogoPng from '@assets/images/logo.png'
 
 export default defineComponent({
   name: 'side-menu-logo',
   setup() {
+    const store = useStore()
+    const isCollapse = computed(() => store.state.Common.isCollapse)
 
     return {
-      LogoPng
+      LogoPng,
+      isCollapse
     }
   }
 })

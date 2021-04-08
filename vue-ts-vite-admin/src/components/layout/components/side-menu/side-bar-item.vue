@@ -1,30 +1,28 @@
 <template>
-  <div class="side-bar-item">
-    <el-submenu
-      v-if="menu.children && menu.children.length !== 0"
-      :index="menu.path"
-      popper-append-to-body
-    >
+  <el-submenu
+    v-if="menu.children && menu.children.length !== 0"
+    :index="menu.path"
+    popper-append-to-body
+  >
 
-      <template #title>
-        <i :class="menu.meta.icon"></i>
-        <span>{{ menu.meta.title }}</span>
-      </template>
-      <side-bar-item
-        v-for="child in menu.children"
-        :key="child.name"
-        :menu="child"
-      />
-    </el-submenu>
-    <el-menu-item
-      v-else
-      :index="menu.path"
-      @click="handlerGoTo(menu)"
-    >
+    <template #title>
       <i :class="menu.meta.icon"></i>
-      <template #title>{{ menu.meta.title }}</template>
-    </el-menu-item>
-  </div>
+      <span>{{ menu.meta.title }}</span>
+    </template>
+    <side-bar-item
+      v-for="child in menu.children"
+      :key="child.name"
+      :menu="child"
+    />
+  </el-submenu>
+  <el-menu-item
+    v-else
+    :index="menu.path"
+    @click="handlerGoTo(menu)"
+  >
+    <i :class="menu.meta.icon"></i>
+    <template #title>{{ menu.meta.title }}</template>
+  </el-menu-item>
 </template>
 
 <script lang="ts">

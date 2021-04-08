@@ -1,12 +1,12 @@
 <template>
   <div class="side-bar">
     <el-menu
-      mode="vertical"
       :default-active="activeRouteName"
       class="scroll-bar width-100-pre height-100-pre overflow-y-auto"
       @open="handleOpen"
       @close="handleClose"
       :collapse="isCollapse"
+      :collapse-transition="false"
     >
       <el-menu-item
         index="home"
@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts">
-import {computed, defineComponent, ref} from 'vue'
+import { computed, defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import SideBarItem from './side-bar-item.vue'
@@ -41,7 +41,7 @@ export default defineComponent({
 
     const menuList = store.state.Common.routes
     const activeRouteName = computed(() => store.state.Common.activeRouteName)
-    const isCollapse = ref(false)
+    const isCollapse = computed(() => store.state.Common.isCollapse)
 
     const handleOpen = (key, keyPath) => {
       console.log(key, keyPath)

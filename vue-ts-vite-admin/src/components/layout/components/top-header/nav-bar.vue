@@ -54,6 +54,7 @@ export default defineComponent({
     const router = useRouter()
 
     const activeRouteName = computed(() => store.state.Common.activeRouteName)
+    const isCollapse = computed(() => store.state.Common.isCollapse)
 
     const currentRoute = computed(() => {
       const currentItem = route.matched.filter(item => item.name === activeRouteName.value)
@@ -82,7 +83,7 @@ export default defineComponent({
      * 控制侧边导航条收起
      */
     const handlerSwitchSideBar = () => {
-
+      store.commit('SET_COLLAPSE', !isCollapse.value)
     }
 
     return {
@@ -101,6 +102,7 @@ export default defineComponent({
       font-size: 24px;
       margin-right: 20px;
       color: #666;
+      cursor: pointer;
     }
 
     &__user {
